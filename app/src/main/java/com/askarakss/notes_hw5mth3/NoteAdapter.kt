@@ -1,36 +1,49 @@
 package com.askarakss.notes_hw5mth3
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.askarakss.notes_hw5mth3.databinding.ItemNoteBinding
 
-class NoteAdapter: RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+class NoteAdapter(val listener: IItemClick) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
 
-    var list:MutableList<String> = ArrayList()
+    var list:MutableList<NoteModel> = ArrayList()
 
-    fun addNote(text: String){
-        list.add(text)
+    fun addNote(note: NoteModel){
+        list.add(note)
         notifyItemInserted(list.size )
     }
 
-   inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        var text = itemView.findViewById<TextView>(R.id.item_text)
+    fun delete(pos: Int){
+        list.removeAt(pos)
+        notifyItemRemoved(pos)
 
-        fun bind(message: String){
-            text.text = message
-            text.setOnLongClickListener{
-                list.removeAt(adapterPosition)
-                notifyItemRemoved(list.size)
+    }
+
+    fun getlist(): MutableList<NoteModel>{
+        return list
+    }
+
+   inner class ViewHolder(val binding: ItemNoteBinding): RecyclerView.ViewHolder(binding.root){
+
+        fun bind(note: NoteModel){
+            binding.itemText.text = note.title
+            binding.itemTextDesc.text = note.desc
+            binding.itemText.setOnLongClickListener{
+                listener.delete(adapterPosition)
+
                 true
+            }
+            binding.root.setOnClickListener{
+                listener.edit(adapterPosition)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_note
-            ,parent,false))
+        val view = ItemNoteBinding.inflate(LayoutInflater.from(parent.context), parent,
+            false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,4 +53,9 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return list.size
 
-}}
+}
+    fun edit(pos: Int, note: NoteModel){
+        list[pos] = note
+        notifyItemChanged(pos)
+    }
+}

@@ -19,10 +19,23 @@
         android:id="@+id/edit_note"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/add_note"
+        app:layout_constraintBottom_toTopOf="@id/edit_note_desc"
         app:layout_constraintStart_toStartOf="parent"
+        android:hint="Title"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/edit_note_desc"
+        android:layout_width="0dp"
+        android:hint="Description"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/add_note"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+
 
     <Button
         android:id="@+id/add_note"
