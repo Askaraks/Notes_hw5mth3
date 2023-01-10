@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="add" translatable="false">добавить</string>
+    <string name="warning" translatable="false">Предупреждение</string>
+    <string name="message" translatable="false">письмо</string>
+    <string name="cancel" translatable="false">закрыть</string>
+    <string name="description" translatable="false">описание</string>
+    <string name="title" translatable="false">Заголовок</string>
+    <string name="edit" translatable="false">изменить</string>
+</resources>

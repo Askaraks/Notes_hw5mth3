@@ -1,5 +1,6 @@
 package com.askarakss.notes_hw5mth3
 
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,20 +8,31 @@ import com.askarakss.notes_hw5mth3.databinding.ItemNoteBinding
 
 class NoteAdapter(val listener: IItemClick) : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
 
-    var list:MutableList<NoteModel> = ArrayList()
+    private var list:MutableList<NoteModel> = ArrayList()
 
     fun addNote(note: NoteModel){
         list.add(note)
         notifyItemInserted(list.size )
     }
 
+
     fun delete(pos: Int){
         list.removeAt(pos)
         notifyItemRemoved(pos)
 
     }
+    fun sort(){
+        list.sortBy { it.title }
+        notifyDataSetChanged()
+    }
+
+    fun edit(pos: Int, note: NoteModel){
+        list[pos] = note
+        notifyItemChanged(pos)
+    }
 
     fun getlist(): MutableList<NoteModel>{
+        //list.sortBy { it.title }
         return list
     }
 
@@ -29,12 +41,11 @@ class NoteAdapter(val listener: IItemClick) : RecyclerView.Adapter<NoteAdapter.V
         fun bind(note: NoteModel){
             binding.itemText.text = note.title
             binding.itemTextDesc.text = note.desc
-            binding.itemText.setOnLongClickListener{
+            binding.itemText.setOnClickListener{
                 listener.delete(adapterPosition)
 
-                true
             }
-            binding.root.setOnClickListener{
+            binding.itemEdit.setOnClickListener{
                 listener.edit(adapterPosition)
             }
         }
@@ -54,8 +65,9 @@ class NoteAdapter(val listener: IItemClick) : RecyclerView.Adapter<NoteAdapter.V
         return list.size
 
 }
-    fun edit(pos: Int, note: NoteModel){
-        list[pos] = note
-        notifyItemChanged(pos)
+    fun getList():MutableList<NoteModel> {
+        return list
+
     }
+
 }

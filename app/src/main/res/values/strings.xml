@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="add" translatable="false">add</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="description" translatable="false">Description</string>
+    <string name="warning" translatable="false">Warning</string>
+    <string name="message" translatable="false">Message</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="edit" translatable="false">Edit</string>
+    <string name="sort">Sort</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="add">add</string>
+
 </resources>
